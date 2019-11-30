@@ -1,0 +1,67 @@
+package javaapplication5;
+
+import java.util.Scanner;
+ 
+public class JavaApplication5 {
+    static Scanner scanner = new Scanner(System.in);
+ 
+    public static void main(String[] args) {
+        int a = getInt();
+        char operation = getOperation();
+        int b = getInt();        
+        int result = calc(a, b, operation);
+        System.out.println(result);
+    }
+    public static char getOperation(){
+        char operation;
+        if(scanner.hasNext()){
+            operation = scanner.next().charAt(0);
+        } else {
+            System.exit(0);
+            operation = getOperation();
+        }
+        return operation;
+       
+    }
+ 
+    public static int getInt(){       
+        int a;
+        if(scanner.hasNextInt()){
+            a = scanner.nextInt();
+            if (a >10) {
+                System.out.println("Вы ввели больше 10") ;
+                System.exit(0);            
+            }  
+        } else {            
+            scanner.next();
+            a = getInt();
+        }
+        return a;
+    }
+ 
+    
+ 
+    public static int calc(int a, int b, char operation){
+        int result;      
+       
+        switch (operation){
+            case '+':
+                result = a+b;
+                break;
+            case '-':
+                result = a-b;
+                break;
+            case '*':
+                result = a*b;
+                break;
+            case '/':
+                result = a/b;
+                break;                 
+            default:
+                System.out.println("Операция не распознана. Повторите ввод.");
+                result = calc(a, b, getOperation());//рекурсия
+        }
+        
+        return result;
+    }
+}
